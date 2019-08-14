@@ -2,8 +2,7 @@
   "apps": [
     {
       "name": "monitor-api",
-      "script": "npm",
-      "args" : "dev"
+      "script": "ts-node server"
     }
   ]
 }
