@@ -15,17 +15,10 @@ class Socket {
     }
 
     init() {
-        this.io.on('connection', (socket: any) => {
-            socket.on('disconnect', () => this.checkConnectedSockets())
+        this.io.on('connection', () => {
         });
         this.subscribeToFileReader();
         this.subscribeServerHealthCheck();
-    }
-
-    checkConnectedSockets() {
-        if (Object.keys(this.io.sockets.sockets).length && !this.timer) {
-            this.subscribeServerHealthCheck();
-        }
     }
 
     subscribeServerHealthCheck() {
@@ -33,11 +26,9 @@ class Socket {
             const usage = await Os.cpuUsage();
             const free = await Os.cpuFree();
             const d = {...Os.infos, cpuUsage: usage, cpuFree: free};
+            console.log('checkConnectedSockets:connectedSockets', Object.keys(this.io.sockets.sockets).length);
             if (Object.keys(this.io.sockets.sockets).length) {
                 this.io.sockets.emit('serverHealthCheck', d);
-            } else {
-                clearInterval(this.timer);
-                this.timer = false
             }
         }, 5000)
     }

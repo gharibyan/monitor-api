@@ -1,8 +1,0 @@
-{
-  "apps": [
-    {
-      "name": "monitor-api",
-      "script": "ts-node server"
-    }
-  ]
-}
