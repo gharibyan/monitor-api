@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "monitor-api",
+      "script": "npm",
+      "args" : "dev"
+    }
+  ]
+}
