@@ -1,6 +1,8 @@
 import {Request, Response, NextFunction} from 'express'
+import FileReader from "../services/fileReader";
 import Os from '../services/os';
-
+const FOLDER_PATH: string = process.env.LOG_FOLDER || '';
+const fileReader = new FileReader(FOLDER_PATH);
 
 class HealthCheck {
 
@@ -14,10 +16,10 @@ class HealthCheck {
         }
     }
 
-    static async lastErrorLines(_: Request, res: Response, next: NextFunction) {
+    static async lastLogs(_: Request, res: Response, next: NextFunction) {
         try {
-
-            return res.status(200).json({})
+            const response = await fileReader.getLasFileLines();
+            return res.status(200).json(response)
         } catch (err) {
             return next(err)
         }

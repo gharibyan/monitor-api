@@ -7,6 +7,9 @@ const router = express.Router();
 router.route('/')
     .get(HealthCheck.info)
 
+router.route('/last-logs')
+    .get(HealthCheck.lastLogs)
+
 
 
 export default router;
