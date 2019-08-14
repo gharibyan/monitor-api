@@ -37,7 +37,7 @@ class Socket {
         const FOLDER_PATH:string = process.env.LOG_FOLDER || '';
         const fileReader = new FileReader(FOLDER_PATH);
         fileReader.listen((lastLine: object) => {
-            if (this.io.sockets) {
+            if (Object.keys(this.io.sockets.sockets).length) {
                 this.io.sockets.emit('lastLine', lastLine);
             }
         })
