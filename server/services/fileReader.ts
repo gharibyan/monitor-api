@@ -41,7 +41,7 @@ class FileReader {
                 fs.watchFile(`${this.filePath}${file}`, async () => {
                     console.log(`${this.filePath}${file}`, 'has some changes');
                     const lastLine: string = await readLastLines.read(`${this.filePath}${file}`, 1);
-                    cb({file, lastLine})
+                    cb({file, data:lastLine})
                 })
             }
         }
