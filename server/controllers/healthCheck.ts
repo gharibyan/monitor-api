@@ -16,9 +16,10 @@ class HealthCheck {
         }
     }
 
-    static async lastLogs(_: Request, res: Response, next: NextFunction) {
+    static async lastLogs(req: Request, res: Response, next: NextFunction) {
         try {
-            const response = await fileReader.getLasFileLines();
+            const {lines} = req.query;
+            const response = await fileReader.getLasFileLines(lines);
             return res.status(200).json(response)
         } catch (err) {
             return next(err)
