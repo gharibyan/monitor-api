@@ -1,6 +1,6 @@
 import FileReader from "./fileReader";
 import Os from './os';
-
+const INTERVAL = process.env.INTERVAL || 1000;
 class Socket {
     io: any;
     timer: any;
@@ -26,11 +26,10 @@ class Socket {
             const usage = await Os.cpuUsage();
             const free = await Os.cpuFree();
             const d = {...Os.infos, cpuUsage: usage, cpuFree: free};
-            console.log('checkConnectedSockets:connectedSockets', Object.keys(this.io.sockets.sockets).length);
             if (Object.keys(this.io.sockets.sockets).length) {
                 this.io.sockets.emit('serverHealthCheck', d);
             }
-        }, 5000)
+        }, INTERVAL)
     }
 
     subscribeToFileReader() {
