@@ -31,7 +31,7 @@ class Socket {
             const usage: any | number = await Os.cpuUsage();
             const free = await Os.cpuFree();
             const d = {...Os.infos, cpuUsage: usage, cpuFree: free};
-            if (usage > 0.6 && slack.slackActive) {
+            if (usage >= 0.8 && slack.slackActive) {
                 slack.send(`CPU USAGE IS: ${(usage * 100).toFixed(2)}%`)
             }
             if (Object.keys(this.io.sockets.sockets).length) {
