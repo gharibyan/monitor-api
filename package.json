@@ -33,6 +33,7 @@
     "express": "^4.16.2",
     "pg": "^7.4.0",
     "read-last-lines": "^1.7.1",
+    "slack-notify": "^0.1.7",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
