@@ -1,4 +1,3 @@
-//https://hooks.slack.com/services/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
 
 class Slack {
     slack: any;
@@ -15,11 +14,11 @@ class Slack {
         return this.slack
     }
 
-    send(text: string | object) {
+    send(text: string | object, type:string = 'send') {
         if (!this.slack) {
             return console.info(`Slack is not setup`)
         }
-        this.slack.send({
+        this.slack[type]({
             channel: `#${process.env.SLACK_CHANNEL || 'monitor-api'}`,
             text: text,
         });

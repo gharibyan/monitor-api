@@ -5,6 +5,10 @@ interface Line {
     data:Array<string>|null
 }
 
+import Slack from './slack';
+
+const slack = new Slack();
+
 class FileReader {
     filePath: string;
 
@@ -39,8 +43,10 @@ class FileReader {
         for (const file of files) {
             if (file.includes('.log')) {
                 fs.watchFile(`${this.filePath}${file}`, async () => {
-                    console.log(`${this.filePath}${file}`, 'has some changes');
                     const lastLine: string = await readLastLines.read(`${this.filePath}${file}`, 1);
+                    if (file.includes('error')  && slack.slackActive) {
+                        slack.send(`error:${file} -- ${lastLine}`, 'bug')
+                    }
                     cb({file, data:lastLine})
                 })
             }
